@@ -1,6 +1,7 @@
 {
     "git": [
         "https://github.com/KhronosGroup/Vulkan-Headers.git",
+        "https://github.com/corporateshark/bistro_materials.git",
         "https://github.com/glfw/glfw.git",
         "https://github.com/g-truc/glm.git",
         "https://github.com/ocornut/imgui.git",

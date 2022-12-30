@@ -1,2 +1,6 @@
+# external libraries
 /deps
+# for python tools
 /**/__pycache__
+# build files
+/build
