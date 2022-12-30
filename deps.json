@@ -1,0 +1,34 @@
+{
+    "git": [
+        "https://github.com/KhronosGroup/Vulkan-Headers.git",
+        "https://github.com/glfw/glfw.git",
+        "https://github.com/g-truc/glm.git",
+        "https://github.com/ocornut/imgui.git",
+        "https://github.com/nothings/stb.git",
+        "https://github.com/bombomby/optick.git",
+        "https://github.com/assimp/assimp.git",
+        "https://github.com/google/etc2comp",
+        "https://github.com/taskflow/taskflow.git",
+        "https://github.com/zeux/meshoptimizer",
+        "https://github.com/zeux/volk.git",
+        "https://github.com/KhronosGroup/glslang.git",
+        "https://github.com/corporateshark/poisson-disk-generator",
+        "https://github.com/KhronosGroup/glTF-Sample-Models.git",
+        "https://github.com/g-truc/gli.git",
+        "https://github.com/bulletphysics/bullet3.git",
+        "https://github.com/Tencent/rapidjson.git",
+        "https://github.com/CedricGuillemet/ImGuizmo"
+    ],
+    "zip": [
+        "https://github.com/yse/easy_profiler/releases/download/v2.1.0/easy_profiler-v2.1.0-msvc15-win64.zip",
+        "https://github.com/yse/easy_profiler/archive/v2.1.0.zip",
+        "https://casual-effects.com/g3d/data10/research/model/bistro/PropTextures",
+        "https://casual-effects.com/g3d/data10/research/model/bistro/OtherTextures",
+        "https://casual-effects.com/g3d/data10/research/model/bistro/BuildingTextures",
+        "https://casual-effects.com/g3d/data10/research/model/bistro/Interior.zip",
+        "https://casual-effects.com/g3d/data10/research/model/bistro/Exterior.zip",
+        "https://unity3d.com/files/labs/downloads/vfx/assets01/Explosion01/Explosion01-sequence-tga.zip",
+        "https://unity3d.com/files/labs/downloads/vfx/assets01/Explosion02/Explosion02-sequence-tga.zip",
+        "https://unity3d.com/files/labs/downloads/vfx/assets01/Explosion00/Explosion00-sequence-tga.zip"
+    ]
+}
