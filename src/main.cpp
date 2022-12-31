@@ -1,8 +1,11 @@
+#include "headers/glm.hpp"
+#include "headers/stl.hpp"
+#include "headers/opengl.hpp"
+
 #include <glad/glad.h>
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
-#include <stdio.h>
-#include <stdlib.h>
 
 static const char* shaderCodeVertex = R"(
 #version 460 core
@@ -34,37 +37,14 @@ void main()
 };
 )";
 
-int main( void ){
-    // set callbacks for glfw library
-    glfwSetErrorCallback([](int error, const char* description) {
-        fprintf(stderr, "Error: %s\n", description);
-    });
-    // initialize window with OpenGL Version 4.6 and Core Profile
-    if( !glfwInit() )
-        exit(EXIT_FAILURE);
+namespace gl = OpenGL;
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    // create window object
-    GLFWwindow* window = glfwCreateWindow(
-        1024, 768, "Raynder", nullptr, nullptr
-    );
-    // check if creation worked
-    if(!window){
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-    }
-    // set callbacks for window
-    glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods){
-        if( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS){
-            glfwSetWindowShouldClose(window, GLFW_TRUE);
-        }
-    });
-    // make opengl context
-    glfwMakeContextCurrent(window);
+int main( void ){
+
+    // initialize window and OpenGL
+    gl::GLFW_Init(4, 6);
+    GLFWwindow* window = gl::GLFW_WindowInitOpenGL();
     gladLoadGL();
-    glfwSwapInterval(1);
     // create triangle
     // compile vertex shader
     const GLuint shaderVertex = glCreateShader(GL_VERTEX_SHADER);
@@ -87,10 +67,22 @@ int main( void ){
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     
     while( !glfwWindowShouldClose(window) ){
+
+        // window resizing
         int width, height;
         glfwGetFramebufferSize(window, &width, &height);
         glViewport(0, 0, width, height);
+        // matrices
+        const float ratio = width / (float) height;
+        const glm::mat4 m = glm::rotate(
+            glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.5f)),
+            (float)glfwGetTime(),
+            glm::vec3(1.0f, 1.0f, 1.0f)
+        );
+        const glm::mat4 p = glm::perspective(45.0f, ratio, 0.1f, 1000.0f);
+        // solid background
         glClear(GL_COLOR_BUFFER_BIT);
+        // draw and swap buffers, events
         glDrawArrays(GL_TRIANGLES, 0, 3);
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -100,7 +92,8 @@ int main( void ){
     glDeleteShader(shaderVertex);
     glDeleteShader(shaderFragment);
     glDeleteVertexArrays(1, &vao);
-    glfwDestroyWindow(window);
-    glfwTerminate();
+    
+    gl::GLFW_Terminate(window);
+
     return 0;
 }
