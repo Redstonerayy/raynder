@@ -1,6 +1,7 @@
 #include "headers/glm.hpp"
 #include "headers/stl.hpp"
 #include "headers/opengl.hpp"
+#include "opengl/shader/shaderloader.hpp"
 
 #include <glad/glad.h>
 #define GLFW_INCLUDE_NONE
@@ -45,21 +46,10 @@ int main( void ){
     gl::GLFW_Init(4, 6);
     GLFWwindow* window = gl::GLFW_WindowInitOpenGL();
     gladLoadGL();
-    // create triangle
-    // compile vertex shader
-    const GLuint shaderVertex = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(shaderVertex, 1, &shaderCodeVertex, nullptr);
-    glCompileShader(shaderVertex);
-    // compile fragment shader
-    const GLuint shaderFragment = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(shaderFragment, 1, &shaderCodeFragment, nullptr);
-    glCompileShader(shaderFragment);
-    // create and compile programs after attaching shaders
-    const GLuint program = glCreateProgram();
-    glAttachShader(program, shaderVertex);
-    glAttachShader(program, shaderFragment);
-    glLinkProgram(program);
-    glUseProgram(program);
+    // get shaders and make program
+    std::string cwd = std::filesystem::current_path();
+    gl::ShaderLoader shaderloader({ cwd + "/src/shaders"}, {});
+    const GLuint program = shaderloader.MakeProgram({ "simple_fragment.glsl", "simple_vertex.glsl"}, true);
     // create empty vao
     GLuint vao;
     glCreateVertexArrays(1, &vao);
@@ -88,9 +78,6 @@ int main( void ){
         glfwPollEvents();
 
     }
-    glDeleteProgram(program);
-    glDeleteShader(shaderVertex);
-    glDeleteShader(shaderFragment);
     glDeleteVertexArrays(1, &vao);
     
     gl::GLFW_Terminate(window);
