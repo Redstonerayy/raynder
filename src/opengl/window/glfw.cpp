@@ -17,9 +17,12 @@ void GLFW_Init(int openglmajor, int openglminor) {
     if( !glfwInit() )
         exit(EXIT_FAILURE);
     // window hints
+    // opengl version and profile
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, openglmajor);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, openglminor);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // MSAA
+    glfwWindowHint(GLFW_SAMPLES, 4);
 }
 
 void GLFW_Terminate(GLFWwindow * window) {
